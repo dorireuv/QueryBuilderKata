@@ -1,15 +1,12 @@
 package com.dorireuv.querybuilder;
 
 import com.dorireuv.querybuilder.condition.Condition;
-import com.dorireuv.querybuilder.formatter.FormattedQuery;
 import org.junit.Test;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 import static com.dorireuv.querybuilder.SelectQueryBuilder.select;
 import static com.dorireuv.querybuilder.condition.Conditions.isEqual;
-import static com.dorireuv.querybuilder.condition.Conditions.or;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 

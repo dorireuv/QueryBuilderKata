@@ -42,7 +42,10 @@ public class SelectQueryFormatterTest {
         Condition whereCondition = or(isEqual("Field", 1), isEqual("Field", 2));
         SelectQuery query = select("Field").from("Table").where(whereCondition).build();
         FormattedQuery formattedQuery = query.format();
-        assertThat(formattedQuery.queryString, is(equalTo("SELECT Field FROM Table WHERE (Field = :p0 OR Field = :p1);")));
+        assertThat(
+                formattedQuery.queryString,
+                is(equalTo("SELECT Field FROM Table WHERE (Field = :p0 OR Field = :p1);"))
+        );
         assertThat((Integer) formattedQuery.queryParams.get("p0"), is(equalTo(1)));
         assertThat((Integer) formattedQuery.queryParams.get("p1"), is(equalTo(2)));
     }

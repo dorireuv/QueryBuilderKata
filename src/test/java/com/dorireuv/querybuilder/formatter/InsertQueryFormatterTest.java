@@ -1,15 +1,10 @@
 package com.dorireuv.querybuilder.formatter;
 
 import com.dorireuv.querybuilder.InsertQuery;
-import com.dorireuv.querybuilder.UpdateQuery;
-import com.dorireuv.querybuilder.condition.Condition;
 import com.google.common.collect.ImmutableMap;
 import org.junit.Test;
 
 import static com.dorireuv.querybuilder.InsertQueryBuilder.insertInto;
-import static com.dorireuv.querybuilder.UpdateQueryBuilder.update;
-import static com.dorireuv.querybuilder.condition.Conditions.isEqual;
-import static com.dorireuv.querybuilder.condition.Conditions.or;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 

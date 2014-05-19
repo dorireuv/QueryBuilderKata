@@ -1,7 +1,6 @@
 package com.dorireuv.querybuilder;
 
 import com.dorireuv.querybuilder.condition.Condition;
-import com.dorireuv.querybuilder.formatter.FormattedQuery;
 import com.google.common.collect.ImmutableMap;
 import org.junit.Test;
 

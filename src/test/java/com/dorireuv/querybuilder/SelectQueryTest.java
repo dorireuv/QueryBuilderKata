@@ -1,18 +1,18 @@
-package com.dorireuv.querybuilder.formatter;
+package com.dorireuv.querybuilder;
 
-import com.dorireuv.querybuilder.SelectQuery;
 import com.dorireuv.querybuilder.condition.Condition;
+import com.dorireuv.querybuilder.formatter.FormattedQuery;
 import org.junit.Test;
 
 import java.util.Collections;
 
-import static com.dorireuv.querybuilder.SelectQueryBuilder.select;
+import static com.dorireuv.querybuilder.SelectQuery.select;
 import static com.dorireuv.querybuilder.condition.Conditions.isEqual;
 import static com.dorireuv.querybuilder.condition.Conditions.or;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-public class SelectQueryFormatterTest {
+public class SelectQueryTest {
     @Test
     public void selectSingleFieldFromTable() throws Exception {
         SelectQuery query = select("Field").from("Table").build();
@@ -27,6 +27,21 @@ public class SelectQueryFormatterTest {
         FormattedQuery formattedQuery = query.format();
         assertThat(formattedQuery.queryString, is(equalTo("SELECT Field1, Field2 FROM Table;")));
         assertThat(formattedQuery.queryParams, is(equalTo(Collections.<String, Object>emptyMap())));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void selectNullFieldNameThrowsIllegalArgumentException() throws Exception {
+        select("Field1", "Field2", null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void selectEmptyFieldNameThrowsIllegalArgumentException() throws Exception {
+        select("Field1", "Field2", "");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void selectFieldFromEmptyTableNameThrowsIllegalArgumentException() throws Exception {
+        select("Field").from("");
     }
 
     @Test

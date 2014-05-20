@@ -1,17 +1,17 @@
-package com.dorireuv.querybuilder.formatter;
+package com.dorireuv.querybuilder;
 
-import com.dorireuv.querybuilder.UpdateQuery;
 import com.dorireuv.querybuilder.condition.Condition;
+import com.dorireuv.querybuilder.formatter.FormattedQuery;
 import com.google.common.collect.ImmutableMap;
 import org.junit.Test;
 
-import static com.dorireuv.querybuilder.UpdateQueryBuilder.update;
+import static com.dorireuv.querybuilder.UpdateQuery.update;
 import static com.dorireuv.querybuilder.condition.Conditions.isEqual;
 import static com.dorireuv.querybuilder.condition.Conditions.or;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
-public class UpdateQueryFormatterTest {
+public class UpdateQueryTest {
     @Test
     public void updateTableSetSingleValue() throws Exception {
         ImmutableMap<String, Object> values = ImmutableMap.<String, Object>of("Field", 10);
@@ -29,6 +29,21 @@ public class UpdateQueryFormatterTest {
         assertThat(formattedQuery.queryString, is(equalTo("UPDATE Table SET Field1 = :p0, Field2 = :p1;")));
         assertThat((Integer) formattedQuery.queryParams.get("p0"), is(equalTo(10)));
         assertThat((Integer) formattedQuery.queryParams.get("p1"), is(equalTo(20)));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void updateEmptyTableNameThrowsIllegalArgumentException() throws Exception {
+        update("");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void updateTableSetNoValuesThrowsIllegalArgumentException() throws Exception {
+        update("Table").set(ImmutableMap.<String, Object>of());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void updateTableSetValueWithEmptyFieldNameThrowsIllegalArgumentException() throws Exception {
+        update("Table").set(ImmutableMap.<String, Object>of("", 10));
     }
 
     @Test
